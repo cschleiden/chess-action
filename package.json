@@ -1,0 +1,26 @@
+{
+  "name": "chess-action",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "run": "ts-node src/index.ts",
+    "package": "ncc build src/index.ts -o dist"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@actions/core": "^1.2.0",
+    "chess.js": "^0.10.2",
+    "stockfish": "^10.0.2",
+    "tiny-glob": "^0.2.6"
+  },
+  "devDependencies": {
+    "@types/chess.js": "^0.10.0",
+    "@types/node": "^12.12.7",
+    "@zeit/ncc": "^0.20.5",
+    "ts-node": "^8.4.1",
+    "typescript": "^3.7.2"
+  }
+}

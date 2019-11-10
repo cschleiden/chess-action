@@ -1,0 +1,10 @@
+name: "Chess"
+description: "Play chess in your "
+author: "cschleiden"
+inputs:
+  games:
+    description: "Glob expression to find games in the current folder, default: **/*.pgn"
+    default: "**/*.pgn"
+runs:
+  using: "node12"
+  main: "dist/index.js"
