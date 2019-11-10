@@ -1,6 +1,9 @@
-name: "Chess"
-description: "Play chess in your "
+name: "GitHub Actions Chess"
+description: "Play chess in your GitHub repository powered by GitHub Actions"
 author: "cschleiden"
+branding:
+    icon: 'play'
+    color: 'orange'
 inputs:
   games:
     description: "Glob expression to find games in the current folder, default: **/*.pgn"
