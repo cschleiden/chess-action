@@ -5,7 +5,9 @@
   "main": "dist/index.js",
   "scripts": {
     "run": "ts-node src/index.ts",
-    "package": "ncc build src/index.ts -o dist"
+    "package": "ncc build src/index.ts -o dist",
+    "test": "jest",
+    "test-watch": "jest --watch"
   },
   "keywords": [],
   "author": "",
@@ -18,8 +20,13 @@
   },
   "devDependencies": {
     "@types/chess.js": "^0.10.0",
+    "@types/jest": "^24.0.22",
     "@types/node": "^12.12.7",
     "@zeit/ncc": "^0.20.5",
+    "del": "^5.1.0",
+    "jest": "^24.9.0",
+    "jest-circus": "^24.9.0",
+    "ts-jest": "^24.1.0",
     "ts-node": "^8.4.1",
     "typescript": "^3.7.2"
   }

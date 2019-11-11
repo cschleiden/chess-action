@@ -12,7 +12,7 @@ export async function play(
   game: Game,
   timeToThinkInMs = 1000
 ): Promise<string> {
-  return new Promise(resolve => {
+  return new Promise<string>(resolve => {
     const engine = stockfish();
 
     let state = State.UCI;

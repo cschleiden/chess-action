@@ -206,20 +206,30 @@ const fs_1 = __webpack_require__(747);
 const game_1 = __webpack_require__(355);
 const play_1 = __webpack_require__(940);
 const tiny_glob_1 = __importDefault(__webpack_require__(47));
+function main(gamesGlob, timeToThink) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const games = yield tiny_glob_1.default(gamesGlob);
+        for (const game of games) {
+            const file = yield fs_1.promises.readFile(game, "utf-8");
+            const g = new game_1.Game(file);
+            try {
+                const move = yield play_1.play(g, timeToThink);
+                g.move(move);
+                yield fs_1.promises.writeFile(game, g.output, "utf-8");
+            }
+            catch (e) {
+                core.error(`${game} failed with: ${e instanceof Error ? e.message : e}`);
+            }
+        }
+    });
+}
+exports.main = main;
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         // Read inputs
         const gamesGlob = core.getInput("games") || "**/*.pgn";
         const timeToThink = parseInt(core.getInput("timeToThink") || "", 10) || 1000;
-        // Perform moves
-        const games = yield tiny_glob_1.default(gamesGlob);
-        for (const game of games) {
-            const file = yield fs_1.promises.readFile(game, "utf-8");
-            const g = new game_1.Game(file);
-            const move = yield play_1.play(g, timeToThink);
-            g.move(move);
-            yield fs_1.promises.writeFile(game, g.output, "utf-8");
-        }
+        yield main(gamesGlob, timeToThink);
     });
 }
 run();
@@ -237,8 +247,10 @@ const chess_js_1 = __webpack_require__(807);
 class Game {
     constructor(pgn) {
         this.c = new chess_js_1.Chess();
-        this.c.load_pgn(pgn);
-        this.c.moves().forEach(m => console.log(m));
+        if (!this.c.load_pgn(pgn)) {
+            console.debug(this.c.header());
+            throw new Error("Could not parse game.");
+        }
     }
     get fen() {
         return this.c.fen();
@@ -255,7 +267,8 @@ class Game {
         if (!this.c.move(move, {
             sloppy: true
         })) {
-            throw new Error("Cannot make move");
+            throw new Error("Cannot make move" +
+                (this.c.game_over() ? " - game already ended." : ""));
         }
     }
 }

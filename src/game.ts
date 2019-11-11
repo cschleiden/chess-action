@@ -4,9 +4,11 @@ export class Game {
   private c = new Chess();
 
   constructor(pgn: string) {
-    this.c.load_pgn(pgn);
+    if (!this.c.load_pgn(pgn)) {
+      console.debug(this.c.header());
 
-    this.c.moves().forEach(m => console.log(m));
+      throw new Error("Could not parse game.");
+    }
   }
 
   get fen(): string {
@@ -29,7 +31,10 @@ export class Game {
         sloppy: true
       })
     ) {
-      throw new Error("Cannot make move");
+      throw new Error(
+        "Cannot make move" +
+          (this.c.game_over() ? " - game already ended." : "")
+      );
     }
   }
 }
