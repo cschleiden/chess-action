@@ -91,6 +91,18 @@ The action has moved its pawn to e5 and for our convenience added a nice ASCII d
 
 To add our next move,  just modify the file again, commit, push, etc.. 
 
+## Inputs
+
+Valid inputs to customize are:
+
+### `games`
+
+Glob pattern for finding games in the repository, defaults to `**/*.pgn`
+
+### `timeToThink`
+
+The time the chess engine is allowed to think about the next move in milliseconds, defaults to `1 000` (one second).
+
 ## Known issues
 
 The way the workflow is defined, it will always read all game files (default `**.pgn`) and play the next move, so if you have multiple concurrent games, make sure to send your moves in a single push (doesn't have to be single commit).
