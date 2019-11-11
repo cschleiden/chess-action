@@ -6,7 +6,7 @@ Play chess in your GitHub repository. Create as many concurrent games as you wan
 
 ## Usage
 
-Add the following workflow to one of your repositories, as `.github/workflows/chess.yaml`:
+Add the following workflow to one of your repositories, for example as `.github/workflows/chess.yaml`:
 
 ```yml
 name: Chess!
@@ -44,7 +44,7 @@ This workflow will:
 - on every push that includes a `*.pgn` file anywhere in the repository:
 - checkout your repository
 - play a move on every game represented by a `.pgn` file anywhere in the repository
-- commit and push the updated game states back to your repository (*note: for new the source branch needs to be hard-coded, since `actions/checkout` leaves the checked out repository in a DETACHED state*)
+- commit and push the updated game states back to your repository (*note: for now the source branch needs to be hard-coded, since `actions/checkout` leaves the checked out repository in a DETACHED state*)
 </details>
 
 Then, create a file like `game1.pgn` anywhere in your repository and enter your first move in [Portable Game Notation](https://en.wikipedia.org/wiki/Portable_Game_Notation), for example:
@@ -93,12 +93,12 @@ To add our next move,  just modify the file again, commit, push, etc..
 
 ## Known issues
 
-The way the workflow is defined, it will always read all game files (default `**.pgn`) and play the next move, so if you have multiple concurrent 
+The way the workflow is defined, it will always read all game files (default `**.pgn`) and play the next move, so if you have multiple concurrent games, make sure to send your moves in a single push (doesn't have to be single commit).
 
 Also, this pretty much uses some default `stockfish` settings, I'm not really familiar with [UCI](https://en.wikipedia.org/wiki/Universal_Chess_Interface) engines, so there's probably room for improvement :).
 
 ## Acknowledgements
 
-This project makes use of some great libraries:
+This project makes use of some great libraries which do all the heavy lifting:
 - https://github.com/jhlywa/chess.js - To parse, modify, and output PGN and FEN.
 - https://github.com/nmrugg/stockfish.js - To actually play. 
