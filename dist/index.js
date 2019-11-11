@@ -210,12 +210,13 @@ function run() {
     return __awaiter(this, void 0, void 0, function* () {
         // Read inputs
         const gamesGlob = core.getInput("games") || "**/*.pgn";
+        const timeToThink = parseInt(core.getInput("timeToThink") || "", 10) || 1000;
         // Perform moves
         const games = yield tiny_glob_1.default(gamesGlob);
         for (const game of games) {
             const file = yield fs_1.promises.readFile(game, "utf-8");
             const g = new game_1.Game(file);
-            const move = yield play_1.play(g);
+            const move = yield play_1.play(g, timeToThink);
             g.move(move);
             yield fs_1.promises.writeFile(game, g.output, "utf-8");
         }

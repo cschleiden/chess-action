@@ -8,6 +8,9 @@ inputs:
   games:
     description: "Glob expression to find games in the current folder, default: **/*.pgn"
     default: "**/*.pgn"
+  timeToThink:
+    description: "Time for the chess engine to think (in ms), defaults to one second"
+    default: 1000
 runs:
   using: "node12"
   main: "dist/index.js"
