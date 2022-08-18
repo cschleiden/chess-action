@@ -13,7 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@actions/core": "^1.2.0",
+    "@actions/core": "^1.9.1",
     "chess.js": "^0.10.2",
     "stockfish": "^10.0.2",
     "tiny-glob": "^0.2.6"
